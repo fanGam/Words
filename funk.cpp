@@ -9,21 +9,21 @@ using namespace std;
 bool Filecheck(string namer) {
 	ifstream f1;
 	string a;
-	string b = "0123456789";
 	bool check = true;
 	f1.open(namer);
 	while (f1 >> a && check) {
-		if (a.length() == 5) {
-			for (int i = 0; i < b.length(); i++) {
-				if (a.find(b[i]) != a.npos) check = false;
-			}
-		}
-		else {
-			check = false;
+		for (int i = 0; i < a.length(); i++) {
+			if (isdigit(a[i])) check = false;
 		}
 	}
 	f1.close();
 	return check;
+}
+
+//Funk that find the meaning 
+void GetMeaning(string a) {
+	string link = "https://en.wikipedia.org/wiki/" + a;
+	ShellExecuteA(NULL, "open", link.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
 // Funk that return the number of elem in file
@@ -102,6 +102,17 @@ void generator() {
 			else {
 				cout << "Error!" << endl;
 			}
+		}
+		if (att > 0) {
+			cout << "You get it!" << endl;
+		}
+		else {
+			cout << "Not this time!" << endl;
+		}
+		cout << "Do you want to get meaning? Y/N" << endl;
+		cin >> Inp;
+		if (Inp == "y" || Inp == "Y") {
+			GetMeaning(word);
 		}
 	}
 }
