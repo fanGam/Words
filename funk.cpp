@@ -112,6 +112,12 @@ void generator() {
 		cout << "Type word that you predict!" << endl;
 		while (Inp != word && att >= 0) {
 			cin >> Inp;
+			if (Inp.length() > word.length()) {
+				for (int i = 0; i < Inp.length(); i++) {
+					if (i < word.length()) cout << " ";
+					else if (i == word.length()) cout << "_" << endl;
+				}
+			}
 			for (int i = 0; i < Inp.length(); i++) {
 				if (i < word.length()) {
 					if (Inp[i] == word[i]) {
@@ -130,21 +136,6 @@ void generator() {
 						else {
 							cout << "~";
 						}
-					}
-				}
-				else if (i == word.length()) {
-					cout << " | ";
-					tryer = false;
-					for (int j = 0; j < word.length(); j++) {
-						if (tryer == false && Inp[i] == word[j]) {
-							tryer = true;
-						}
-					}
-					if (tryer == false) {
-						cout << "-";
-					}
-					else {
-						cout << "~";
 					}
 				}
 				else {
@@ -171,7 +162,7 @@ void generator() {
 			cout << "You get it!" << endl;
 		}
 		else {
-			cout << "Not this time!" << endl;
+			cout << "Not this time! " << word << endl;
 		}
 		cout << "Do you want to get meaning? Y/N" << endl;
 		cin >> Inp;

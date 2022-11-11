@@ -8,7 +8,6 @@ mist
 fog
 snow
 cool
-shower
 lightning
 breeze
 rainfall
