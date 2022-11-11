@@ -61,6 +61,7 @@ void generator() {
 	string Input;
 	string word;
 	bool tryer;
+	int h = 0;
 	cout << "Type what word do you want to guess!" << endl;
 	cout << "1 - full random!" << endl;
 	cout << "-> ";
@@ -76,14 +77,14 @@ void generator() {
 		cout << "Type word that you predict!" << endl;
 		while (Inp != word && att >= 0) {
 			cin >> Inp;
-			if (Inp.length() == 5) {
-				for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < Inp.length(); i++) {
+				if (i != word.length()) {
 					if (Inp[i] == word[i]) {
 						cout << "+";
 					}
 					else {
 						tryer = false;
-						for (int j = 0; j < 5; j++) {
+						for (int j = 0; j < word.length(); j++) {
 							if (tryer == false && Inp[i] == word[j]) {
 								tryer = true;
 							}
@@ -96,12 +97,26 @@ void generator() {
 						}
 					}
 				}
-				cout << endl;
-				att--;
+				else if (i == word.length()) {
+					cout << " | ";
+					tryer = false;
+					for (int j = 0; j < word.length(); j++) {
+						if (tryer == false && Inp[i] == word[j]) {
+							tryer = true;
+						}
+					}
+					if (tryer == false) {
+						cout << "-";
+					}
+					else {
+						cout << "~";
+					}
+				}
+				h = i;
 			}
-			else {
-				cout << "Error!" << endl;
-			}
+			while (++h < word.length()) cout << "._.";
+			cout << endl;
+			att--;
 		}
 		if (att > 0) {
 			cout << "You get it!" << endl;
