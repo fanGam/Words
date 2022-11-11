@@ -63,14 +63,49 @@ void generator() {
 	bool tryer;
 	int h = 0;
 	cout << "Type what word do you want to guess!" << endl;
-	cout << "1 - full random!" << endl;
+	cout << "1 - test!" << endl;
+	cout << "2 - fruits!" << endl;
+	cout << "3 - vegetables!" << endl;
+	cout << "4 - weather!" << endl;
+	cout << "5 - materials!" << endl;
+	cout << "6 - food!" << endl;
+	cout << "7 - animals!" << endl;
 	cout << "-> ";
 	cin >> Input;
-	if (Input == "1") {
+
+	if (Input == "1")
 		word = "baza.txt";
-		if (Filecheck(word)) GetWord(word);
-		else cout << "Error with file!" << endl;
+	else if (Input == "2")
+		word = "fruits.txt";
+	else if (Input == "3")
+		word = "vegetables.txt";
+	else if (Input == "4")
+		word = "weather.txt";
+	else if (Input == "5")
+		word = "materials.txt";
+	else if (Input == "6")
+		word = "food.txt";
+	else if (Input == "7")
+		word = "animals.txt";
+	else {
+		cout << "Incorrect input!" << endl;
+		cout << "You will be guesting..." << endl;
+		srand(time(0));
+		switch (rand() % 7 + 1)
+		{
+		case 1: word = "baza.txt"; cout << "test" << endl; break;
+		case 2: word = "fruits.txt"; cout << "fruits" << endl; break;
+		case 3: word = "vegetables.txt"; cout << "vegetables" << endl; break;
+		case 4: word = "weather.txt"; cout << "weather" << endl; break;
+		case 5: word = "materials.txt"; cout << "materials" << endl;break;
+		case 6: word = "food.txt"; cout << "food" << endl; break;
+		case 7: word = "animals.txt"; cout << "animals" << endl; break;
+		}
 	}
+
+	if (Filecheck(word)) GetWord(word);
+	else cout << "Error with file!" << endl;
+
 	if (Filecheck(word)) {
 		string Inp = "asd";
 		int att = 5;
@@ -78,7 +113,7 @@ void generator() {
 		while (Inp != word && att >= 0) {
 			cin >> Inp;
 			for (int i = 0; i < Inp.length(); i++) {
-				if (i != word.length()) {
+				if (i < word.length()) {
 					if (Inp[i] == word[i]) {
 						cout << "+";
 					}
@@ -99,6 +134,20 @@ void generator() {
 				}
 				else if (i == word.length()) {
 					cout << " | ";
+					tryer = false;
+					for (int j = 0; j < word.length(); j++) {
+						if (tryer == false && Inp[i] == word[j]) {
+							tryer = true;
+						}
+					}
+					if (tryer == false) {
+						cout << "-";
+					}
+					else {
+						cout << "~";
+					}
+				}
+				else {
 					tryer = false;
 					for (int j = 0; j < word.length(); j++) {
 						if (tryer == false && Inp[i] == word[j]) {
