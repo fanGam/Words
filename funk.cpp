@@ -26,6 +26,15 @@ void GetMeaning(string a) {
 	ShellExecuteA(NULL, "open", link.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
+void GetWors(string word) {
+	ifstream f1;
+	string a;
+	while (f1 >> a) {
+		cout << a << endl;
+	}
+	f1.close();
+}
+
 // Funk that return the number of elem in file
 int GetLeng(string namer) {
 	setlocale(LC_ALL, "");
