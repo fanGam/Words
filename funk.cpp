@@ -20,6 +20,20 @@ bool Filecheck(string namer) {
 	return check;
 }
 
+// Funk that check the input
+bool InputEn(string a) {
+	string EnAlphabet = "abcdefghijklmnopqrstuvwxyz";
+	bool check;
+	for (int i = 0; i < a.length(); i++) {
+		check = false;
+		for (int j = 0; j < EnAlphabet.length(); j++) {
+			if (a[i] == EnAlphabet[j]) check = true;
+		}
+		if (!check) return false;
+	}
+	return true;
+}
+
 //Funk that find the meaning 
 void GetMeaning(string a) {
 	string link = "https://en.wikipedia.org/wiki/" + a;
@@ -121,16 +135,32 @@ void generator() {
 		cout << "Type word that you predict!" << endl;
 		while (Inp != word && att >= 0) {
 			cin >> Inp;
-			if (Inp.length() > word.length()) {
-				for (int i = 0; i < Inp.length(); i++) {
-					if (i < word.length()) cout << " ";
-					else if (i == word.length()) cout << "_" << endl;
+			if (InputEn(Inp)) {
+				if (Inp.length() > word.length()) {
+					for (int i = 0; i < Inp.length(); i++) {
+						if (i < word.length()) cout << " ";
+						else if (i == word.length()) cout << "_" << endl;
+					}
 				}
-			}
-			for (int i = 0; i < Inp.length(); i++) {
-				if (i < word.length()) {
-					if (Inp[i] == word[i]) {
-						cout << "+";
+				for (int i = 0; i < Inp.length(); i++) {
+					if (i < word.length()) {
+						if (Inp[i] == word[i]) {
+							cout << "+";
+						}
+						else {
+							tryer = false;
+							for (int j = 0; j < word.length(); j++) {
+								if (tryer == false && Inp[i] == word[j]) {
+									tryer = true;
+								}
+							}
+							if (tryer == false) {
+								cout << "-";
+							}
+							else {
+								cout << "~";
+							}
+						}
 					}
 					else {
 						tryer = false;
@@ -146,26 +176,15 @@ void generator() {
 							cout << "~";
 						}
 					}
+					h = i;
 				}
-				else {
-					tryer = false;
-					for (int j = 0; j < word.length(); j++) {
-						if (tryer == false && Inp[i] == word[j]) {
-							tryer = true;
-						}
-					}
-					if (tryer == false) {
-						cout << "-";
-					}
-					else {
-						cout << "~";
-					}
-				}
-				h = i;
+				while (++h < word.length()) cout << "._.";
+				cout << endl;
+				att--;
 			}
-			while (++h < word.length()) cout << "._.";
-			cout << endl;
-			att--;
+			else {
+				cout << "Write word in English!" << endl;
+			}
 		}
 		if (att > 0) {
 			cout << "You get it!" << endl;
