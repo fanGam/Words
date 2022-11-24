@@ -27,7 +27,7 @@ bool InputEn(string a) {
 	for (int i = 0; i < a.length(); i++) {
 		check = false;
 		for (int j = 0; j < EnAlphabet.length(); j++) {
-			if (a[i] == EnAlphabet[j]) check = true;
+			if (tolower(a[i]) == EnAlphabet[j]) check = true;
 		}
 		if (!check) return false;
 	}
