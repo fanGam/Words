@@ -19,6 +19,28 @@ bool InputEn(string a) {
 	return true;
 }
 
+// Funk that checks the file
+bool Filecheck(string namer) {
+	ifstream f1;
+	string a;
+	bool coun = false;
+	f1.open(namer);
+	if (f1.is_open()) {
+		while (f1 >> a) {
+			coun = true;
+			if (!InputEn(a)) {
+				f1.close();
+				return false;
+			}
+		}
+	}
+	else {
+		return false;
+	}
+	f1.close();
+	return coun;
+}
+
 //Funk that find the meaning 
 void GetMeaning(string a) {
 	string link = "https://en.wikipedia.org/wiki/" + a;
@@ -67,6 +89,7 @@ void generator() {
 	cout << "5 - materials!" << endl;
 	cout << "6 - food!" << endl;
 	cout << "7 - animals!" << endl;
+	cout << "8 - your file!" << endl;
 	cout << "-> ";
 	cin >> Input;
 
@@ -84,6 +107,26 @@ void generator() {
 		word = "food.txt";
 	else if (Input == "7")
 		word = "animals.txt";
+	else if (Input == "8") {
+		cout << "Type name of your file!" << endl;
+		cout << "-> ";
+		cin >> Input;
+		word = " ";
+		for (int ch = 0; ch < Input.length(); ch++) {
+			if (Input[ch] == '.' || word[0] == '.') {
+				word += Input[ch];
+			}
+		}
+		if (word == ".txt") {
+			word = Input;
+		}
+		else if (word == " ") {
+			word = Input + ".txt";
+		}
+		else {
+			word = "Null";
+		}
+	}
 	else {
 		cout << "Incorrect input!" << endl;
 		cout << "You will be guesting..." << endl;
@@ -98,17 +141,21 @@ void generator() {
 		case 6: word = "food.txt"; cout << "food" << endl; break;
 		case 7: word = "animals.txt"; cout << "animals" << endl; break;
 		}
-	}
+	}	
 
-	if (Filecheck(word)) GetWord(word);
+	if (word != "Null" && Filecheck(word)) {
+		GetWord(word);
+		tryer = true;
+	}
 	else cout << "Error with file!" << endl;
 
-	if (Filecheck(word)) {
+	if (tryer) {
 		string Inp = "asd";
 		int att = 5;
 		cout << "Type word that you predict!" << endl;
 		while (Inp != word && att >= 0) {
-			cin >> Inp;
+			cin.seekg(cin.eof());
+			getline(cin, Inp);
 			if (InputEn(Inp)) {
 				if (Inp.length() > word.length()) {
 					for (int i = 0; i < Inp.length(); i++) {
@@ -164,7 +211,7 @@ void generator() {
 			cout << "You get it!" << endl;
 		}
 		else {
-			cout << "Not this time! " << word << endl;
+			cout << "Not this time! The word was - " << word << endl;
 		}
 		cout << "Do you want to get meaning? Y/N" << endl;
 		cin >> Inp;
