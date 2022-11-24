@@ -5,21 +5,6 @@
 #include <Windows.h>
 using namespace std;
 
-// Funk that checks the file
-bool Filecheck(string namer) {
-	ifstream f1;
-	string a;
-	bool check = true;
-	f1.open(namer);
-	while (f1 >> a && check) {
-		for (int i = 0; i < a.length(); i++) {
-			if (isdigit(a[i])) check = false;
-		}
-	}
-	f1.close();
-	return check;
-}
-
 // Funk that check the input
 bool InputEn(string a) {
 	string EnAlphabet = "abcdefghijklmnopqrstuvwxyz";
@@ -40,18 +25,8 @@ void GetMeaning(string a) {
 	ShellExecuteA(NULL, "open", link.c_str(), NULL, NULL, SW_SHOWNORMAL);
 }
 
-void GetWors(string word) {
-	ifstream f1;
-	string a;
-	while (f1 >> a) {
-		cout << a << endl;
-	}
-	f1.close();
-}
-
 // Funk that return the number of elem in file
 int GetLeng(string namer) {
-	setlocale(LC_ALL, "");
 	ifstream f1;
 	string a;
 	int i = 0;
@@ -66,7 +41,6 @@ int GetLeng(string namer) {
 
 // Funk thet generate Word
 void GetWord(string& namer) {
-	setlocale(LC_ALL, "");
 	ifstream f1;
 	string a;
 	srand(time(0));
