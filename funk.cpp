@@ -145,6 +145,10 @@ void generator() {
 
 	if (word != "Null" && Filecheck(word)) {
 		GetWord(word);
+		string buf = "";
+		for (int i = 0; i < word.length(); i++)
+			buf += tolower(word[i]);
+		word = buf;
 		tryer = true;
 	}
 	else cout << "Error with file!" << endl;
