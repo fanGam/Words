@@ -79,6 +79,7 @@ void GetWord(string& namer) {
 void generator() {
 	string Input;
 	string word;
+	string buffer;
 	bool tryer = false;
 	int h = 0;
 	cout << "Type what word do you want to guess!" << endl;
@@ -145,10 +146,10 @@ void generator() {
 
 	if (word != "Null" && Filecheck(word)) {
 		GetWord(word);
-		string buf = "";
+		buffer = "";
 		for (int i = 0; i < word.length(); i++)
-			buf += tolower(word[i]);
-		word = buf;
+			buffer += tolower(word[i]);
+		word = buffer;
 		tryer = true;
 	}
 	else cout << "Error with file!" << endl;
@@ -160,6 +161,12 @@ void generator() {
 		while (Inp != word && att >= 0) {
 			cin.seekg(cin.eof());
 			getline(cin, Inp);
+			buffer = "";
+			for (int i = 0; i < Inp.length(); i++) {
+				if (Inp[i] == ' ') buffer += ' ';
+				else buffer += tolower(Inp[i]);
+			}
+			Inp = buffer;
 			if (InputEn(Inp)) {
 				if (Inp.length() > word.length()) {
 					for (int i = 0; i < Inp.length(); i++) {
@@ -169,7 +176,7 @@ void generator() {
 				}
 				for (int i = 0; i < Inp.length(); i++) {
 					if (i < word.length()) {
-						if (Inp[i] == word[i]) {
+						if (tolower(Inp[i]) == tolower(word[i])) {
 							cout << "+";
 						}
 						else {
